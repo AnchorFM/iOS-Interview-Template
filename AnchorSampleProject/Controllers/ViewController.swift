@@ -1,12 +1,5 @@
 import UIKit
 
-final class AlbumTableViewCell: UITableViewCell {
-    private var albumImageView: UIImageView {
-        let imageView = UIImageView()
-        return imageView
-    }
-}
-
 final class ViewController: UIViewController {
 
     private var tableView: UITableView {
@@ -17,23 +10,32 @@ final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
     }
 
     private func setupViews() {
         view.addSubview(tableView)
-        tableView.pinViewToEdges(of: view)
+        tableView.register(
+            AlbumTableViewCell.self,
+            forCellReuseIdentifier: AlbumTableViewCell.defaultIdentifier
+        )
+        tableView.fitViewToEdges(of: view)
     }
 }
 
-extension UIView {
-    func pinViewToEdges(of view: UIView) {
-        let constraints = [
-            leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ]
-        addConstraints(constraints)
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: AlbumTableViewCell.defaultIdentifier
+        ) else {
+            return UITableViewCell()
+        }
+        
+
+        return cell
     }
 }
-
