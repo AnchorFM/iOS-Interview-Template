@@ -1,31 +1,33 @@
 import UIKit
 
 final class AlbumTableViewCell: UITableViewCell {
-    private var labelsStackView: UIStackView {
+    private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
         return stackView
-    }
+    }()
 
-    private var contentStackView: UIStackView {
+    private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 10
         return stackView
-    }
+    }()
 
-    private var artistNameLabel: UILabel {
+    private lazy var artistNameLabel: UILabel = {
         let label = UILabel()
+        label.text = "artist name"
         return label
-    }
+    }()
 
-    private var albumNameLabel: UILabel {
+    private lazy var albumNameLabel: UILabel = {
         let label = UILabel()
+        label.text = "album name"
         return label
-    }
+    }()
 
-    private var coverArtImageView: UIImageView {
+    private lazy var coverArtImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }
@@ -50,7 +52,5 @@ final class AlbumTableViewCell: UITableViewCell {
             labelsStackView
         )
         contentView.addSubview(contentStackView)
-
-        contentStackView.fitViewToEdges(of: contentView)
     }
 }
