@@ -5,7 +5,6 @@ final class ViewController: UIViewController {
     // MARK: - Views
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(
             AlbumTableViewCell.self,
@@ -26,18 +25,5 @@ final class ViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.margins.equalToSuperview()
         }
-    }
-}
-
-extension ViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: AlbumTableViewCell.defaultIdentifier
-        ) else { return UITableViewCell() }
-        return cell
     }
 }
