@@ -21,6 +21,7 @@ final class AlbumTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
@@ -28,6 +29,7 @@ final class AlbumTableViewCell: UITableViewCell {
         let image = UIImage(named: "PlaceholderAlbumCoverArt")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
@@ -52,8 +54,6 @@ final class AlbumTableViewCell: UITableViewCell {
 
     // MARK: - Views setup
     func setupViews() {
-        contentView.addSubview(contentStackView)
-        
         labelsStackView.addArrangedSubviews(
             albumNameLabel,
             artistNameLabel
@@ -64,12 +64,10 @@ final class AlbumTableViewCell: UITableViewCell {
             labelsStackView
         )
 
-        contentStackView.snp.makeConstraints { make in
-            make.margins.equalToSuperview()
-        }
+        contentView.addSubview(contentStackView)
 
-        coverArtImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(50)
-        }
+        contentStackView.fitToMargins(of: contentView)
+        coverArtImageView.setWidth(equalTo: 50)
+        coverArtImageView.setHeight(equalTo: 50)
     }
 }
